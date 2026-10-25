@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="km"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ប្រព័ន្ធរបាយការណ៍ IT Support</title>
+<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&family=Moul&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root{--bg:#87ceeb;--card:#e8f6ff;--ink:#1b2a36;--mut:#3d5a70;--line:#7aa9c4;--red:#c00000;--head:#c00000;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Kantumruy Pro','Khmer OS Battambang',system-ui,sans-serif;background:linear-gradient(180deg,#a8defa,#87ceeb 50%,#6bb9e0) fixed;color:var(--ink)}
+[hidden]{display:none!important}
+/* LOGIN */
+#login{position:fixed;inset:0;display:grid;place-items:center;overflow:hidden;background:linear-gradient(135deg,#3a0008,#c00000,#ff6a3d,#7a0030);background-size:400% 400%;animation:bg 14s ease infinite;z-index:9}
+@keyframes bg{50%{background-position:100% 50%}}
+.blob{position:absolute;border-radius:50%;filter:blur(40px);opacity:.5;animation:fl 12s ease-in-out infinite}
+.blob:nth-child(1){width:340px;height:340px;background:#ffb703;left:-80px;top:-60px}
+.blob:nth-child(2){width:420px;height:420px;background:#e63946;right:-120px;bottom:-100px;animation-delay:-4s}
+.blob:nth-child(3){width:220px;height:220px;background:#fff;opacity:.25;left:55%;top:10%;animation-delay:-8s}
+@keyframes fl{50%{transform:translate(40px,-50px) scale(1.15)}}
+.spark{position:absolute;bottom:-20px;width:8px;height:8px;border-radius:50%;background:#fff;opacity:0;animation:rise linear infinite}
+@keyframes rise{10%{opacity:.8}100%{transform:translateY(-110vh);opacity:0}}
+.box{position:relative;width:min(380px,90vw);padding:34px 30px;border-radius:24px;background:rgba(255,255,255,.14);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.35);box-shadow:0 25px 60px rgba(0,0,0,.4);color:#fff;text-align:center;animation:pop .9s cubic-bezier(.2,1.2,.3,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(40px) scale(.9)}}
+.box.shake{animation:shk .5s}
+@keyframes shk{20%,60%{transform:translateX(-12px)}40%,80%{transform:translateX(12px)}}
+.ring{width:84px;height:84px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:38px;background:#fff3;position:relative;animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #fff8}100%{box-shadow:0 0 0 26px #fff0}}
+.box h1{font-family:Moul,serif;font-size:19px;margin:0 0 4px;font-weight:400}
+.box p{margin:0 0 22px;font-size:13px;opacity:.85}
+.f{position:relative;margin-bottom:18px;text-align:left}
+.f input{width:100%;padding:16px 44px 8px 16px;border-radius:14px;border:1.5px solid #fff5;background:#0003;color:#fff;font:inherit;font-size:15px;outline:0;transition:.3s}
+.f input:focus{border-color:#fff;background:#0004;box-shadow:0 0 0 4px #fff2}
+.f label{position:absolute;left:16px;top:14px;font-size:14px;opacity:.8;pointer-events:none;transition:.25s}
+.f input:focus+label,.f input:not(:placeholder-shown)+label{top:4px;font-size:11px;opacity:1}
+.eye{position:absolute;right:10px;top:10px;background:none;border:0;color:#fff;font-size:18px;cursor:pointer}
+.go{width:100%;padding:14px;border:0;border-radius:14px;font:inherit;font-weight:700;font-size:16px;color:#b00000;background:#fff;cursor:pointer;position:relative;overflow:hidden;transition:.25s}
+.go:hover{transform:translateY(-3px);box-shadow:0 10px 24px #0005}
+.go::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(90deg,transparent,#ff6a3d88,transparent);transform:skewX(-20deg);animation:sh 2.6s infinite}
+@keyframes sh{to{left:140%}}
+#err{min-height:20px;margin:10px 0 0;font-size:13px;color:#ffe08a}
+/* APP */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 16px;background:linear-gradient(110deg,#e8f6ff,#ffffff,#d6efff,#ffffff,#e8f6ff);background-size:300% 100%;animation:barflow 9s linear infinite;border-bottom:2px solid #5aaee0;box-shadow:0 6px 20px #2a7fb855}@keyframes barflow{to{background-position:-300% 0}}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:6}
+.bar b{margin-right:auto;font-size:17px;background:linear-gradient(90deg,#c00000,#ff6a3d,#7a1fa2,#c00000);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:txt 5s linear infinite}@keyframes txt{to{background-position:-300% 0}}
+.btn{--c1:#475569;--c2:#64748b;position:relative;overflow:hidden;padding:9px 15px;border-radius:12px;border:0;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;font:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px #0002;transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s;animation:drop .6s cubic-bezier(.2,1.3,.3,1) both}
+.btn::after{content:"";position:absolute;top:0;left:-90%;width:55%;height:100%;background:linear-gradient(90deg,transparent,#fff9,transparent);transform:skewX(-22deg);transition:left .6s}
+.btn:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 10px 22px #0004}
+.btn:hover::after{left:140%}
+.btn:active{transform:scale(.94)}
+@keyframes drop{from{opacity:0;transform:translateY(-24px) scale(.8)}}
+.bar>:nth-child(2){--c1:#11998e;--c2:#38ef7d;animation-delay:.05s}
+.bar>:nth-child(3){--c1:#7b2ff7;--c2:#c471f5;animation-delay:.1s}
+.bar>:nth-child(4){--c1:#e52d27;--c2:#ff6a6a;animation-delay:.15s}
+.bar>:nth-child(5){--c1:#1565c0;--c2:#42a5f5;animation-delay:.2s}
+.bar>:nth-child(6){--c1:#f12711;--c2:#f5af19;animation-delay:.25s}
+.bar>:nth-child(7){--c1:#0f9b8e;--c2:#2dd4bf;animation-delay:.3s}
+.bar>:nth-child(8){--c1:#3949ab;--c2:#7986cb;animation-delay:.35s}
+.bar>:nth-child(9){--c1:#37474f;--c2:#78909c;animation-delay:.4s}
+.btn.p{background:var(--red);color:#fff;border-color:var(--red)}
+.sheet{max-width:1000px;margin:18px auto;background:var(--card);box-shadow:0 8px 30px #0002;overflow:hidden}
+.hd{background:var(--head);color:#fff;text-align:center;padding:22px 16px;position:relative}
+.hd img{height:70px;display:block;margin:0 auto 8px;background:#fff;border-radius:8px;padding:4px}
+.hd .o{font-family:Moul,serif;font-size:18px}.hd .e{border-bottom:2px solid #fff;display:inline-block;margin:4px 0}
+.body{padding:18px 22px}
+h2.t{font-family:Moul,serif;color:var(--red);text-align:center;font-weight:400;font-size:24px;margin:6px 0 16px}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;margin-bottom:14px}
+h3{font-family:Moul,serif;font-weight:400;color:var(--red);font-size:16px;margin:22px 0 8px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{background:var(--head);color:#fff;padding:8px;border:1px solid var(--line)}
+td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;min-width:70px}
+td.n{width:36px;text-align:center}
+.s3 th{background:#f4b183;color:#222}
+[contenteditable=true]{outline:0;border-radius:4px}
+[contenteditable=true]:hover{background:#c0000012}
+[contenteditable=true]:focus{background:#c0000020;box-shadow:inset 0 0 0 1.5px var(--red)}
+.x{border:0;background:none;color:var(--red);cursor:pointer;font-size:16px}
+.add{margin-top:6px}
+.ft{border-top:2px solid var(--red);margin-top:24px;padding-top:8px;font-size:12px;color:var(--mut);text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#222;color:#fff;padding:10px 18px;border-radius:12px;font-size:13px;z-index:20;animation:pop .4s both}
+body.view .no{display:none}
+@media print{.bar,.no,.toast,body::before{display:none!important}body{background:#fff}.sheet{box-shadow:none;margin:0;max-width:none}:root{padding:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+#goProf{cursor:pointer;transition:transform .3s}#goProf:hover{transform:scale(1.07) rotate(-1deg)}
+.pf{position:relative;max-width:980px;margin:18px auto;padding:0 14px 30px;animation:pop .7s cubic-bezier(.2,1.2,.3,1) both}
+.pcard{position:relative;display:grid;grid-template-columns:300px 1fr;gap:26px;padding:28px;border-radius:28px;background:linear-gradient(135deg,#ffffffd9,#e3f3ffd9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid #fff;box-shadow:0 24px 60px #1565c055;overflow:hidden;transition:transform .2s;margin-top:14px}
+.pcard::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(#7b2ff755,transparent 65%);right:-120px;top:-140px;animation:fl 9s ease-in-out infinite}
+.pcard>*{position:relative;animation:up .7s both}.pcard>:nth-child(2){animation-delay:.15s}.pcard>:nth-child(3){animation-delay:.3s}.pcard>:nth-child(4){animation-delay:.45s}
+@keyframes up{from{opacity:0;transform:translateY(26px)}}
+.ph{text-align:center}
+.ring2{width:210px;height:210px;margin:0 auto 14px;border-radius:50%;padding:7px;background:conic-gradient(#ff6a3d,#c471f5,#42a5f5,#2dd4bf,#ffd166,#ff6a3d);animation:spin 5s linear infinite;box-shadow:0 0 36px #7b2ff777;position:relative}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring2>div{width:100%;height:100%;border-radius:50%;background:#e8f6ff;overflow:hidden;display:grid;place-items:center;font-size:84px;animation:spin 5s linear infinite reverse}
+.ring2 img{width:100%;height:100%;object-fit:cover;transition:transform .5s}.ring2:hover img{transform:scale(1.15)}
+.pi h2{margin:0;font-family:Moul,serif;font-weight:400;font-size:26px;background:linear-gradient(90deg,#c00000,#7b2ff7,#1565c0,#c00000);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:txt 6s linear infinite}
+.role{display:inline-block;margin:8px 0 14px;padding:5px 16px;border-radius:30px;background:linear-gradient(135deg,#11998e,#38ef7d);color:#fff;font-weight:700;box-shadow:0 4px 14px #11998e66;animation:pulse2 2.4s infinite}
+@keyframes pulse2{50%{transform:scale(1.06)}}
+.cnt{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:18px;background:linear-gradient(135deg,#1565c0,#7b2ff7);color:#fff;box-shadow:0 10px 26px #7b2ff766}
+.num{font-size:52px;font-weight:700;line-height:1;min-width:70px;text-align:center;text-shadow:0 0 18px #fff9}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chips span{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;color:#fff;animation:drop .6s both}
+.pform{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.pform label{display:block;font-size:12px;font-weight:700;color:#1565c0;margin-bottom:4px}
+.pform input,.pform select,.pform textarea{width:100%;padding:11px 13px;border-radius:12px;border:1.5px solid #9cc8e6;background:#fff;color:#1b2a36;font:inherit;transition:.25s}
+.pform input:focus,.pform select:focus,.pform textarea:focus{outline:0;border-color:#7b2ff7;box-shadow:0 0 0 4px #7b2ff733;transform:translateY(-2px)}
+.pform .w{grid-column:1/-1}
+.log{grid-column:1/-1;font-size:13px;color:#1b2a36}.log div{padding:6px 12px;margin-top:5px;border-radius:10px;background:#ffffffaa;border-left:4px solid #7b2ff7;animation:up .5s both}
+@media(max-width:720px){.pcard{grid-template-columns:1fr}}
+@media print{#prof{display:none!important}}
+</style></head><body>
+
+<div id="login">
+ <div class="blob"></div><div class="blob"></div><div class="blob"></div>
+ <div id="sp"></div>
+ <form class="box" id="lf" onsubmit="return false">
+  <div class="ring">🔐</div>
+  <h1>ចូលប្រើប្រព័ន្ធ</h1><p>របាយការណ៍ IT Support</p>
+  <div class="f"><input id="u" placeholder=" " autocomplete="username"><label>Username</label></div>
+  <div class="f"><input id="pw" type="password" placeholder=" " autocomplete="current-password"><label>Password</label><button type="button" class="eye" id="eye">👁</button></div>
+  <button class="go" id="go">ចូលប្រព័ន្ធ</button>
+  <div id="err"></div>
+ </form>
+</div>
+
+<div id="app" hidden>
+ <div class="bar">
+  <b id="goProf" title="ចុចដើម្បីមើលប្រវត្តិរូប">📋 ប្រព័ន្ធរបាយការណ៍</b>
+  <button class="btn" id="bEdit">✏️ Edit: បើក</button>
+  <label class="btn">🖼 ប្តូរ Logo<input type="file" id="fLogo" accept="image/*" hidden></label>
+  <button class="btn" id="bPdf">📄 PDF</button>
+  <button class="btn" id="bDocx">📝 Docx</button>
+  <button class="btn" id="bPrint">🖨 Print</button>
+  <button class="btn" id="bJson">{ } JSON</button>
+  <label class="btn">⬆ Import JSON<input type="file" id="fJson" accept=".json" hidden></label>
+  <button class="btn" id="bOut">ចាកចេញ</button>
+ </div>
+ <div class="sheet" id="sheet"><div id="doc"></div></div>
+<div id="prof" hidden><div class="pf">
+<button class="btn" id="pBack" style="--c1:#1565c0;--c2:#42a5f5">← ត្រឡប់ទៅរបាយការណ៍</button>
+<div class="pcard" id="pcard">
+ <div class="ph"><div class="ring2"><div><img id="pimg" alt="" hidden><span id="pav">👨‍💻</span></div></div><label class="btn" style="--c1:#7b2ff7;--c2:#c471f5">📷 ប្តូររូប<input type="file" id="fPhoto" accept="image/*" hidden></label></div>
+ <div class="pi"><h2 id="pnameH"></h2><div class="role" id="proleH"></div>
+  <div class="cnt"><div class="num" id="pnum">0</div><div>ចំនួនដងដែលបានធ្វើ Report<br><small>(PDF · Docx · Print · JSON)</small></div></div>
+  <div class="chips" id="pchips"></div></div>
+ <div class="pform">
+  <div><label>ឈ្មោះអ្នកបង្កើតប្រព័ន្ធ</label><input data-p="name"></div>
+  <div><label>តួនាទី</label><input data-p="role"></div>
+  <div><label>ថ្ងៃចូលធ្វើការងារ</label><input type="date" data-p="start"></div>
+  <div><label>អាយុ</label><input type="number" min="1" max="99" data-p="age"></div>
+  <div><label>ភេទ</label><select data-p="gender"><option value="">— ជ្រើសរើស —</option><option>ប្រុស</option><option>ស្រី</option></select></div>
+  <div class="w"><label>ប្រវត្តិរូប</label><textarea rows="4" data-p="bio"></textarea></div>
+ </div>
+ <div class="log" id="plog"></div>
+</div></div></div>
+</div>
+
+<script>
+const KEY='itreport_v1';
+const D0={logo:'',org:'ក្រុមហ៊ុនណារិទ្ធិ.ម៉ាស្ទ័រ-អាយធី អេឌ្យូខេសិន ឯ.ក',orgEn:'NARITH.MASTER-IT EDUCATION CO., LTD',slogan:'អភិវឌ្ឍន៍វិស័យអប់រំនិងបច្ចេកវិទ្យាឱ្យរីកចម្រើន',title:'របាយការណ៍រយៈពេល ៦ខែ',name:'សុវណ្ណ រតនៈ',from:'10/03/2026',to:'10/08/2026',pos:'IT Support interns',dept:'Academic & Operations',
+foot:'អាសយដ្ឋាន៖ លេខ #១៦៨ក និង១៦៨ខ ក្រុមទី២ ភូមិរចនា៤ ឃុំ/សង្កាត់រតនៈ ក្រុងបាត់ដំបង ខេត្តបាត់ដំបង។ Email: master.it.cambodia.edu@gmail.com ទូរស័ព្ទ៖ ០១៦ ៩៥៦ ៣៥៦',
+t1:[['តម្លើងកម្មវិធីក្នុង Computer សាលា','35Pc','Vs code for class IT','IT Support',''],['','92Pc','Install another Tools','IT Support',''],['','60Pc','Microsoft office','IT Support',''],['','24Pc','Adobe Designer','IT Support',''],['','25Pc','Windows Setup','IT Support',''],
+['ជួសជុល Maintenance and Prepare computer តាមបន្ទប់នីមួយៗ','92Pc','រៀបចំសម្ភារតាមបន្ទប់ (Clean Monitor, keyboard); Maintenance and Prepare computer (Fix, Update, and Prepare Tools in computer)','IT Support',''],
+['ការរៀបចំ Software តម្រូវ Space computer','3 People','ការផ្តល់យោបល់ទៅកាន់សិស្សសម្រាប់ការតម្លើងកម្មវិធីក្នុង computer; ការរៀបចំ Space Computer','IT Support',''],
+['ការរៀបចំបន្ទប់ថ្នាក់រៀន (Lab & class)','4 class','រៀបចំ Computer តាមបន្ទប់ថ្នាក់រៀនសម្រាប់ថ្នាក់ Lab និង Class ផ្ទាល់','អ្នកគ្រូ Kim LY',''],
+['សម្របសម្រួល System POS and App Master-IT','2 People','តម្លើង Microsoft office; install App and Tools for Learning','System App',''],
+['Support Teacher','100%','ដោះស្រាយបញ្ហា Software, tools; ការផ្ទេរទិន្នន័យក្នុងប្រព័ន្ធ Computer','IT Support',''],
+['ដោះស្រាយបញ្ហាជូនសិស្ស (MacOS and Windows)','100%','Install Tools, Fix Tools and Using Tools','IT Support',''],
+['ការគ្រប់គ្រងស្តុកទាំងអស់ (IT Support)','100%','All Stock Computer Controller','IT Support',''],
+['ការតម្លើង Driver and Setup computer','78% (85Pc)','install Driver Computer and Printer','IT Support','']],
+t2:[['មិនទាន់ចេះចែក Speed WIFI Router','សិក្សាតាមរយៈ Website YouTube','IT Support']],
+t3:[['']],
+t4:[['រៀបចំបញ្ជី class Computer ថ្មី','IT Support'],['Maintenance computer','IT Support'],['Support Sale and Admin','IT Support']]};
+const S=[{k:'t1',h:'I. លទ្ធផលសម្រេចលើផែនការគោលដៅប្រចាំខែ',c:['គោលដៅប្រចាំខែនីមួយៗ','សម្រេចបាន','សកម្មភាពសម្រេចបាន','អ្នកទទួលខុសត្រូវ','វាយតម្លៃ']},
+{k:'t2',h:'II. បញ្ហាជួបប្រទះ',c:['សកម្មភាព','ដំណោះស្រាយ','អ្នកទទួលខុសត្រូវ']},
+{k:'t3',h:'III. មតិយោបល់ និងសំណូមពរ',c:['មតិយោបល់ និងសំណូមពរ'],s3:1},
+{k:'t4',h:'IV. ផែនការគោលដៅប្រចាំខែថ្មី',c:['គោលដៅប្រចាំខែថ្មី','អ្នកទទួលខុសត្រូវ']}];
+let D,edit=true;
+try{D=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!D||!D.t1)D=JSON.parse(JSON.stringify(D0));
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function save(){try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}}
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),2600)}
+function ce(k,v,tag='span'){return `<${tag} contenteditable="${edit}" data-k="${k}">${esc(v)}</${tag}>`}
+function render(){
+ let h=`<div class="hd">${D.logo?`<img src="${D.logo}" alt="logo">`:''}<div class="o">${ce('org',D.org,'div')}</div><div class="e">${ce('orgEn',D.orgEn)}</div><div>${ce('slogan',D.slogan,'div')}</div></div><div class="body"><h2 class="t">${ce('title',D.title)}</h2><div class="meta">
+ <b>ឈ្មោះ៖</b><div>${ce('name',D.name)}</div><b>ចាប់ផ្តើម៖</b><div>${ce('from',D.from)} ដល់ ${ce('to',D.to)}</div><b>មុខតំណែង៖</b><div>${ce('pos',D.pos)}</div><b>ផ្នែក៖</b><div>${ce('dept',D.dept)}</div></div>`;
+ S.forEach(s=>{h+=`<h3>${s.h}</h3><div class="tw"><table class="${s.s3?'s3':''}"><tr><th>N</th>${s.c.map(c=>`<th>${c}</th>`).join('')}<th class="no" style="width:30px"></th></tr>`;
+  D[s.k].forEach((r,i)=>{h+=`<tr><td class="n">${i+1}</td>${s.c.map((_,j)=>`<td>${ce(s.k+'.'+i+'.'+j,r[j],'div')}</td>`).join('')}<td class="no">${edit?`<button class="x" data-del="${s.k}.${i}">✕</button>`:''}</td></tr>`});
+  h+=`</table></div>${edit?`<button class="btn add no" data-add="${s.k}">+ បន្ថែមជួរ</button>`:''}`});
+ h+=`<div class="ft">${ce('foot',D.foot,'div')}</div></div>`;
+ $('#doc').innerHTML=h;document.body.classList.toggle('view',!edit);
+ $('#bEdit').textContent='✏️ Edit: '+(edit?'បើក':'បិទ');
+}
+$('#doc').addEventListener('input',e=>{const k=e.target.dataset.k;if(!k)return;const p=k.split('.');
+ if(p.length==1)D[k]=e.target.innerText;else D[p[0]][+p[1]][+p[2]]=e.target.innerText;save()});
+$('#doc').addEventListener('click',e=>{const a=e.target.dataset;
+ if(a.add){const s=S.find(x=>x.k==a.add);D[a.add].push(s.c.map(()=>''));save();render()}
+ if(a.del){const[k,i]=a.del.split('.');D[k].splice(+i,1);save();render()}});
+$('#bEdit').onclick=()=>{edit=!edit;render()};
+$('#fLogo').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{D.logo=r.result;save();render();toast('ប្តូរ Logo រួចរាល់')};r.readAsDataURL(f)};
+$('#bPrint').onclick=()=>{try{window.print()}catch(e){toast('Print មិនអាចប្រើបាន')}};
+$('#bPdf').onclick=()=>{toast('ជ្រើស “Save as PDF” ក្នុងផ្ទាំង Print');try{window.print()}catch(e){}};
+async function dl(name,data){try{const d=await claude.use('downloads');if(!d)return toast('មិនអាចទាញយកបាន');await d.save({filename:name,data});bump(name.split('.').pop().toUpperCase())}catch(e){if(e&&e.code!=='declined')toast('Error: '+(e.message||e))}}
+$('#bJson').onclick=()=>dl('report.json',new Blob([JSON.stringify(D,null,2)],{type:'application/json'}));
+$('#fJson').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{const j=JSON.parse(t);if(!j.t1)throw 0;D=j;save();render();toast('នាំចូលរួចរាល់')}catch(x){toast('ឯកសារ JSON មិនត្រឹមត្រូវ')}})};
+/* DOCX (minimal, built with JSZip) */
+const fx='<w:rFonts w:ascii="Khmer OS Battambang" w:hAnsi="Khmer OS Battambang" w:cs="Khmer OS Battambang"/>';
+const wp=(t,o={})=>`<w:p><w:pPr>${o.c?'<w:jc w:val="center"/>':''}</w:pPr><w:r><w:rPr>${fx}${o.b?'<w:b/>':''}${o.col?`<w:color w:val="${o.col}"/>`:''}<w:sz w:val="${o.sz||22}"/></w:rPr><w:t xml:space="preserve">${esc(t)}</w:t></w:r></w:p>`;
+const wtc=(t,hd)=>`<w:tc><w:tcPr>${hd?'<w:shd w:val="clear" w:fill="C00000"/>':''}</w:tcPr>${wp(t,{b:hd,col:hd?'FFFFFF':null,sz:20})}</w:tc>`;
+const wt=(cols,rows)=>`<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders>${['top','left','bottom','right','insideH','insideV'].map(b=>`<w:${b} w:val="single" w:sz="4" w:color="999999"/>`).join('')}</w:tblBorders></w:tblPr><w:tr>${['N',...cols].map(c=>wtc(c,1)).join('')}</w:tr>${rows.map((r,i)=>`<w:tr>${[i+1,...r].map(c=>wtc(String(c))).join('')}</w:tr>`).join('')}</w:tbl>`;
+$('#bDocx').onclick=async()=>{
+ if(!window.JSZip)return toast('JSZip មិនទាន់ដំណើរការ');
+ let b=wp(D.org,{c:1,b:1,sz:30,col:'C00000'})+wp(D.orgEn,{c:1})+wp(D.slogan,{c:1,sz:20})+wp(D.title,{c:1,b:1,sz:40,col:'C00000'})+wp('ឈ្មោះ៖ '+D.name)+wp(`ចាប់ផ្តើម ${D.from} ដល់ ${D.to}`)+wp('មុខតំណែង៖ '+D.pos)+wp('ផ្នែក៖ '+D.dept);
+ S.forEach(s=>{b+=wp(s.h,{b:1,sz:26,col:'C00000'})+wt(s.c,D[s.k])+wp('')});
+ b+=wp(D.foot,{c:1,sz:16});
+ const z=new JSZip();
+ z.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>');
+ z.file('_rels/.rels','<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+ z.file('word/document.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+b+'<w:sectPr><w:pgSz w:w="16838" w:h="11906" w:orient="landscape"/><w:pgMar w:top="1000" w:right="1000" w:bottom="1000" w:left="1000"/></w:sectPr></w:body></w:document>');
+ dl('report.docx',await z.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}));
+};
+/* PROFILE */
+const PK='itreport_prof',TC={PDF:'#e52d27',DOCX:'#1565c0',PRINT:'#f5841f',JSON:'#0f9b8e'};
+let P;try{P=JSON.parse(localStorage.getItem(PK))}catch(e){}
+P=Object.assign({name:'សុវណ្ណ រតនៈ',role:'IT Support',start:'2026-03-10',age:'',gender:'',bio:'IT Support នៅ Narith Master-IT Education ទទួលបន្ទុកតម្លើងកម្មវិធី, Maintenance កុំព្យូទ័រ, ជួយគ្រូនិងសិស្ស និងគ្រប់គ្រងស្តុក។',photo:'',count:0,types:{},log:[]},P||{});
+function psave(){try{localStorage.setItem(PK,JSON.stringify(P))}catch(e){toast('រក្សាទុករូបមិនបាន')}}
+function countUp(el,to){const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0)}
+function phead(){$('#pnameH').textContent=P.name||'—';$('#proleH').textContent=P.role||'—'}
+function prender(){phead();
+ const im=$('#pimg');im.hidden=!P.photo;if(P.photo)im.src=P.photo;$('#pav').hidden=!!P.photo;
+ countUp($('#pnum'),P.count);
+ $('#pchips').innerHTML=Object.keys(P.types).map((k,i)=>`<span style="background:${TC[k]||'#555'};animation-delay:${i*.1}s">${k}: ${P.types[k]}</span>`).join('')||'<span style="background:#78909c">មិនទាន់មាន Report</span>';
+ $('#plog').innerHTML=P.log.map((l,i)=>`<div style="animation-delay:${i*.06}s">🕒 ${esc(l)}</div>`).join('')}
+function bump(t){P.count++;P.types[t]=(P.types[t]||0)+1;P.log.unshift(t+' · '+new Date().toLocaleString('en-GB'));P.log=P.log.slice(0,8);psave();toast('✔ Report ទី '+P.count);if(!$('#prof').hidden)prender()}
+$('#bPdf').addEventListener('click',()=>bump('PDF'));$('#bPrint').addEventListener('click',()=>bump('PRINT'));
+$('#goProf').onclick=()=>{$('#sheet').hidden=true;$('#prof').hidden=false;document.querySelectorAll('[data-p]').forEach(e=>e.value=P[e.dataset.p]??'');prender();window.scrollTo(0,0)};
+$('#pBack').onclick=()=>{$('#prof').hidden=true;$('#sheet').hidden=false};
+document.querySelectorAll('[data-p]').forEach(e=>{const h=()=>{P[e.dataset.p]=e.value;psave();phead()};e.addEventListener('input',h);e.addEventListener('change',h)});
+$('#fPhoto').onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=360;const s=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,360,360);P.photo=c.toDataURL('image/jpeg',.85);psave();prender();toast('ប្តូររូបរួចរាល់')};im.src=URL.createObjectURL(f)};
+$('#pcard').addEventListener('mousemove',e=>{const r=e.currentTarget.getBoundingClientRect();e.currentTarget.style.transform=`perspective(900px) rotateY(${((e.clientX-r.left)/r.width-.5)*5}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*5}deg)`});
+$('#pcard').addEventListener('mouseleave',e=>e.currentTarget.style.transform='');
+/* LOGIN */
+for(let i=0;i<22;i++){const s=document.createElement('i');s.className='spark';s.style.cssText=`left:${Math.random()*100}%;animation-duration:${6+Math.random()*8}s;animation-delay:${-Math.random()*10}s;width:${3+Math.random()*7}px;height:${3+Math.random()*7}px`;$('#sp').append(s)}
+$('#eye').onclick=()=>{const p=$('#pw');p.type=p.type=='password'?'text':'password'};
+function enter(){$('#login').style.transition='opacity .6s,transform .6s';$('#login').style.opacity=0;$('#login').style.transform='scale(1.1)';setTimeout(()=>{$('#login').hidden=true;$('#app').hidden=false;render()},550)}
+function tryLogin(){
+ if($('#u').value.trim()==='Nak123'&&$('#pw').value==='123'){$('#err').textContent='';$('#go').textContent='✔ ជោគជ័យ';try{sessionStorage.setItem('ok','1')}catch(e){}enter()}
+ else{$('#err').textContent='⚠ Username ឬ Password មិនត្រឹមត្រូវ';const b=$('#lf');b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake')}}
+$('#go').onclick=tryLogin;
+$('#lf').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin()});
+$('#bOut').onclick=()=>{try{sessionStorage.removeItem('ok')}catch(e){}location.reload()};
+try{if(sessionStorage.getItem('ok')){$('#login').hidden=true;$('#app').hidden=false;render()}}catch(e){}
+</script></body></html>
